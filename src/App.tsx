@@ -6,7 +6,7 @@ const App = () => {
   return (
     <div className="">
       <Header />
-      <div className="mt-6 px-6 md:px-12">
+      <div className="my-6 px-6 md:px-12">
         <Routes>
           <Route path="/" element={<Landing />} />
         </Routes>
