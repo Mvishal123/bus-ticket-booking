@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { HeaderItems } from "../utils/types";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { HeaderItems } from "../utils/types";
 
 interface DropdownMenuProps {
   items: HeaderItems[];
