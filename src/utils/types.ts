@@ -40,17 +40,19 @@ export enum SeatingType {
 }
 export interface SeatingDetails {
   id: string;
-  type: SeatingType;
+  type: "lower" | "upper";
   seatNumber: number;
   booked?: CustomerDetails;
-  selected: boolean;
+  selected?: boolean;
 }
 
 export interface CustomerDetails {
-  id: string;
   firstName: string;
   lastName: string;
-  tickets?: { busId: string; seatNumber: number }[];
+  email: string;
+  date: Date;
+  seatNumber: number;
+  busId: string;
 }
 
 // Seat layout
@@ -58,12 +60,23 @@ export enum ReducerActionType {
   SELECT_SEAT = "SELECT_SEAT",
   SET_SEAT = "SET_SEAT",
   TOGGLE_SELECT = "TOGGLE_SELECT",
+  BOOK_TICKETS = "BOOK_TICKETS",
 }
+
+export type bookingDetails = {
+  firstname: string;
+  lastname: string;
+  email: string;
+  date: Date;
+  seatNumber: number;
+  busId: string;
+};
 
 export type ReducerPayload =
   | { seatNumber: number }
   | { seatLayout: SeatLayoutType }
-  | selectedSeatType;
+  | selectedSeatType
+  | bookingDetails[];
 
 export type ReducerAction = {
   type: ReducerActionType;

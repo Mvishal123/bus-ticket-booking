@@ -40,7 +40,7 @@ export const mockBusDetails = [
               id: 9,
               type: SeatingType.LOWER,
               seatNumber: 9,
-              booked: "customer1",
+              booked: {firstname: "Vishal", lastname: "M", email: "vishal@gamil.com", date: new Date(), seatNumber: 9},
               selected: false,
             },
             {
@@ -82,7 +82,7 @@ export const mockBusDetails = [
               id: 15,
               type: SeatingType.LOWER,
               seatNumber: 15,
-              booked: "customer1",
+              booked: {firstname: "Vishal", lastname: "M", email: "vishal@gamil.com", date: new Date(), seatNumber: 15},
               selected: false,
             },
             {
@@ -107,7 +107,7 @@ export const mockBusDetails = [
               id: 19,
               type: SeatingType.LOWER,
               seatNumber: 19,
-              booked: "customer2",
+              booked: {firstname: "Vishal", lastname: "M", email: "vishal@gamil.com", date: new Date(), seatNumber: 19},
               selected: false,
             },
           ],

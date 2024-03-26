@@ -12,12 +12,17 @@ const BusContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [busDetails, setBusdetails] = useState<BusDetailsType[]>([]);
 
   useEffect(() => {
-    if (busDetails.length === 0) {
-      localStorage.setItem("busDetails", JSON.stringify(mockBusDetails));
-      const busses = JSON.parse(localStorage.getItem("busDetails")!);
-      setBusdetails(busses);
+    const busdetails = localStorage.getItem("busDetails");
+    if (busdetails) {
+      setBusdetails(JSON.parse(busdetails));
+    } else {
+      const bus = localStorage.setItem(
+        "busDetails",
+        JSON.stringify(mockBusDetails)
+      );
+      setBusdetails(mockBusDetails as any);
     }
-  }, [busDetails]);
+  }, []);
   return (
     <BusContext.Provider value={{ busDetails }}>{children}</BusContext.Provider>
   );

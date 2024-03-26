@@ -6,9 +6,9 @@ import BusBooking from "./components/pages/bus-booking";
 
 const App = () => {
   return (
-    <div className="">
+    <div className="relative">
       <Header />
-      <div className="my-6 px-6 md:px-12">
+      <div className="my-6 px-6 md:px-12 overflow-hidden">
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/booking" element={<Booking />} />

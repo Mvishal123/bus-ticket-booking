@@ -7,6 +7,7 @@ import {
   useState,
 } from "react";
 import {
+  bookingDetails,
   BusDetailsType,
   ReducerAction,
   ReducerActionType,
@@ -48,12 +49,64 @@ const SeatContextProvider = ({ children }: PropsWithChildren) => {
         } else {
           setSelectedSeats([...selectedSeats, seatPayload.seatNumber]);
         }
-
         return state;
 
       case ReducerActionType.SET_SEAT:
         const layoutPayload = payload as { seatLayout: SeatLayoutType };
         return layoutPayload.seatLayout;
+
+      case ReducerActionType.BOOK_TICKETS:
+        const busDetails = localStorage.getItem("busDetails");
+        const bookingPayload = payload as bookingDetails[];
+        if (busDetails) {
+          const parsedBusDetails = JSON.parse(busDetails);
+          const currentBus: BusDetailsType = parsedBusDetails.find(
+            (bus: SeatingDetails) => bus.id == busId
+          );
+
+          let seating = { ...currentBus.seatLayout };
+
+          bookingPayload.map((booking, index) => {
+            const type = booking.seatNumber > 19 ? "upper" : "lower";
+            seating[type].first = seating[type].first?.map((seat) =>
+              Array.isArray(seat)
+                ? seat.map((seats) =>
+                    seats.seatNumber === booking.seatNumber
+                      ? { ...seats, booked: { ...booking } }
+                      : seats
+                  )
+                : seat.seatNumber === booking.seatNumber
+                ? { ...seat, booked: { ...booking } }
+                : seat
+            ) as SeatingDetails[];
+
+            seating[type].second = seating[type].second?.map((seat) =>
+              Array.isArray(seat)
+                ? seat.map((seats) =>
+                    seats.seatNumber === booking.seatNumber
+                      ? { ...seats, booked: { ...booking } }
+                      : seats
+                  )
+                : seat.seatNumber === booking.seatNumber
+                ? { ...seat, booked: { ...booking } }
+                : seat
+            ) as SeatingDetails[];
+
+            const updatedBusLayout = { ...currentBus, seatLayout: seating };
+            const currentIndex = parsedBusDetails.findIndex(
+              (bus: BusDetailsType) => bus.id === busId
+            );
+            parsedBusDetails[currentIndex] = updatedBusLayout;
+
+            console.log();
+            
+
+            localStorage.setItem(
+              "busDetails",
+              JSON.stringify(parsedBusDetails)
+            );
+          });
+        }
 
       default:
         return state;
@@ -72,7 +125,6 @@ const SeatContextProvider = ({ children }: PropsWithChildren) => {
   };
 
   const [seatState, dispatch] = useReducer(reducer, initialState);
-  console.log(selectedSeats);
 
   return (
     <SeatContext.Provider value={{ dispatch, seatState, selectedSeats }}>
