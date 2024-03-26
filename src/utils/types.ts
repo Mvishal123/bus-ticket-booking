@@ -29,7 +29,7 @@ export interface BusDetailsType {
   startTime: string;
   arrivalTime: string;
   price: string;
-  seatLayout: SeatLayoutType
+  seatLayout: SeatLayoutType;
 }
 
 export enum SeatingType {
@@ -41,6 +41,7 @@ export interface SeatingDetails {
   type: SeatingType;
   seatNumber: number;
   booked?: CustomerDetails;
+  selected: boolean;
 }
 
 export interface CustomerDetails {

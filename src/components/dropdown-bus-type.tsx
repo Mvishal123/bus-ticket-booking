@@ -27,13 +27,13 @@ const BusTypeDropdown = ({ items }: BusTypeDropdownProps) => {
         className=" border-2 border-slate-300 px-1 md:px-3 py-1 rounded flex items-center justify-center gap-2"
         onClick={dropdownToggle}
       >
-        {type == null ? "Type" : type === "upper" ? "Upper" : "Lower"}
+        {type == null ? "Deck" : type === "upper" ? "Upper" : "Lower"}
         {isExpanded && <ChevronDown />}
         {!isExpanded && <ChevronUp />}
       </button>
 
       {isExpanded && (
-        <div className="absolute bg-slate-50 w-full border mt-2">
+        <div className="absolute bg-slate-50 w-full border mt-2 z-10">
           {items.map((item) => (
             <Link key={item.label} to={item.href}>
               <div

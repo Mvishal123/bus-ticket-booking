@@ -1,9 +1,9 @@
 import { BusFront } from "lucide-react";
 import { Link } from "react-router-dom";
-import { BusDetails } from "../utils/types";
+import { BusDetailsType } from "../utils/types";
 
 interface BusCardProps {
-  busDetails: BusDetails;
+  busDetails: BusDetailsType;
 }
 const BusCard = ({ busDetails }: BusCardProps) => {
   return (
@@ -21,6 +21,7 @@ const BusCard = ({ busDetails }: BusCardProps) => {
         <div className="flex-1 px-6">
           <h5 className="text-center mb-2 font-semibold text-slate-500 text-sm">
             {busDetails.duration}
+            {}
           </h5>
           <div className="w-full border-2 border-slate-300 border-dashed" />
         </div>

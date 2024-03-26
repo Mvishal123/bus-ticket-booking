@@ -1,13 +1,12 @@
-import { ArrowRight, Bus, BusFront, Divide } from "lucide-react";
+import { ArrowRight, Bus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
+import { generateSeats } from "../../utils/helpers/generate-seats";
 import {
   BusDetailsType,
-  SeatingDetails,
-  SeatLayoutType,
+  SeatLayoutType
 } from "../../utils/types";
 import BusTypeDropdown from "../dropdown-bus-type";
-import BusSeat from "../bus-seat";
 
 const BusBooking = () => {
   const [busDetails, setBusdetails] = useState<BusDetailsType | undefined>(
@@ -36,17 +35,6 @@ const BusBooking = () => {
   }, []);
 
   console.log(seatLayout);
-
-  const generateSeats = (seatsArr: SeatingDetails[] | SeatingDetails[][]) =>
-    seatsArr.map((seats, index) => (
-      <div key={index} className="flex gap-6 my-2">
-        {Array.isArray(seats) ? (
-          seats.map((seat) => <BusSeat data={seat} key={seat.id} />)
-        ) : (
-          <BusSeat data={seats} key={seats.id} />
-        )}
-      </div>
-    ));
 
   return (
     <div>
@@ -96,8 +84,10 @@ const BusBooking = () => {
             </div>
           ) : (
             <div className="rotate-90 sm:rotate-0 flex flex-col items-center text-slate-400">
-              <Bus className="h-16 w-16"/>
-              <h1 className="text-4xl font-semibold  italic">Please select a deck</h1>
+              <Bus className="h-16 w-16" />
+              <h1 className="text-4xl font-semibold  italic">
+                Please select a deck
+              </h1>
             </div>
           ))}
       </section>
