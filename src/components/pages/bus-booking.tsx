@@ -1,18 +1,57 @@
 import { ArrowRight, Bus } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { generateSeats } from "../../utils/helpers/generate-seats";
-import {
-  BusDetailsType,
-  SeatLayoutType
-} from "../../utils/types";
+import { BusDetailsType, SeatLayoutType } from "../../utils/types";
 import BusTypeDropdown from "../dropdown-bus-type";
+
+export enum ReducerActionType {
+  SELECT_SEAT = "SELECT_SEAT",
+  SET_SEAT = "SET_SEAT",
+}
+
+type ReducerPayload = { seatNumber: number } | { seatLayout: SeatLayoutType };
+
+export interface ReducerAction {
+  type: ReducerActionType;
+  payload: ReducerPayload;
+}
 
 const BusBooking = () => {
   const [busDetails, setBusdetails] = useState<BusDetailsType | undefined>(
     undefined
   );
-  const [seatLayout, setSeatLayout] = useState<SeatLayoutType>();
+  // const [seatLayout, setSeatLayout] = useState<SeatLayoutType>();
+
+  //TODO: figure out what's wrong
+  const reducer = (
+    state: SeatLayoutType,
+    action: ReducerAction
+  ): SeatLayoutType => {
+    const { type, payload } = action;
+    switch (type) {
+      case ReducerActionType.SELECT_SEAT:
+      // return payload;
+      case ReducerActionType.SET_SEAT:
+        const layoutPayload = payload as { seatLayout: SeatLayoutType };
+        return layoutPayload.seatLayout;
+      default:
+        return initialState;
+    }
+  };
+  const initialState = {
+    lower: {
+      first: [],
+      second: [],
+    },
+    upper: {
+      first: [],
+      second: [],
+    },
+  };
+  const [seatLayout, dispatch] = useReducer(reducer, initialState);
+
+  console.log(seatLayout);
 
   const { id } = useParams();
   const [searchParams] = useSearchParams();
@@ -30,7 +69,10 @@ const BusBooking = () => {
       const parsedBusses: BusDetailsType[] = JSON.parse(busses);
       const bus = parsedBusses.find((b) => b.id == id);
       setBusdetails(bus);
-      setSeatLayout(bus?.seatLayout);
+      dispatch({
+        type: ReducerActionType.SET_SEAT,
+        payload: { seatLayout: bus?.seatLayout! },
+      });
     }
   }, []);
 
