@@ -33,8 +33,8 @@ export interface BusDetailsType {
 }
 
 export enum SeatingType {
-  UPPER = "Upper",
-  LOWER = "Lower",
+  UPPER = "UPPER",
+  LOWER = "LOWER",
 }
 export interface SeatingDetails {
   id: string;
@@ -56,6 +56,7 @@ export interface CustomerDetails {
 export enum ReducerActionType {
   SELECT_SEAT = "SELECT_SEAT",
   SET_SEAT = "SET_SEAT",
+  TOGGLE_SELECT = "TOGGLE_SELECT", 
 }
 
 export type ReducerPayload = { seatNumber: number } | { seatLayout: SeatLayoutType };
@@ -63,5 +64,5 @@ export type ReducerPayload = { seatNumber: number } | { seatLayout: SeatLayoutTy
 export type ReducerAction = {
   type: ReducerActionType;
   payload: ReducerPayload;
-  busId: string
+  busId?: string
 }

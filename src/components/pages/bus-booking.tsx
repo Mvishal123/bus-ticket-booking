@@ -1,22 +1,14 @@
 import { ArrowRight, Bus } from "lucide-react";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { generateSeats } from "../../utils/helpers/generate-seats";
-import {
-  BusDetailsType,
-  ReducerActionType,
-  SeatLayoutType,
-} from "../../utils/types";
-import BusTypeDropdown from "../dropdown-bus-type";
 import { useSeatState } from "../../utils/store/seat-state";
+import { BusDetailsType, ReducerActionType } from "../../utils/types";
+import BusTypeDropdown from "../dropdown-bus-type";
 
 const BusBooking = () => {
-  const [busDetails, setBusdetails] = useState<BusDetailsType | undefined>(
-    undefined
-  );
-
   // @ts-ignore
-  const { dispatch, seatState } = useSeatState();
+  const { dispatch, seatState, busDetails } = useSeatState();
 
   const { id } = useParams();
   const [searchParams] = useSearchParams();
@@ -27,20 +19,6 @@ const BusBooking = () => {
     { label: "Lower", href: `/booking/${id}?type=lower` },
     { label: "Clear", href: `/booking/${id}` },
   ];
-
-  useEffect(() => {
-    const busses = localStorage.getItem("busDetails");
-    if (busses) {
-      const parsedBusses: BusDetailsType[] = JSON.parse(busses);
-      const bus = parsedBusses.find((b) => b.id == id);
-      setBusdetails(bus);
-      dispatch({
-        type: ReducerActionType.SET_SEAT,
-        payload: { seatLayout: bus?.seatLayout! },
-      });
-    }
-  }, []);
-  console.log(seatState);
 
   return (
     <div>
