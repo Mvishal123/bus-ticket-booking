@@ -1,25 +1,29 @@
+import { ArrowRight, Divide } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import { BusDetailsType, SeatLayoutType } from "../../utils/types";
-import { ArrowRight, ArrowRightFromLine } from "lucide-react";
-import DropdownMenu from "../dropdown-menu";
+import {
+  BusDetailsType,
+  SeatingDetails,
+  SeatLayoutType,
+} from "../../utils/types";
 import BusTypeDropdown from "../dropdown-bus-type";
+import BusSeat from "../bus-seat";
 
 const BusBooking = () => {
   const [busDetails, setBusdetails] = useState<BusDetailsType | undefined>(
     undefined
   );
-  const [seatLayout, setSeatLayout] = useState<SeatLayoutType | undefined>();
+  const [seatLayout, setSeatLayout] = useState<SeatLayoutType>();
 
   const { id } = useParams();
   const [searchParams] = useSearchParams();
+  const type = searchParams.get("type");
+
   const busItems = [
     { label: "Upper", href: `/booking/${id}?type=upper` },
     { label: "Lower", href: `/booking/${id}?type=lower` },
     { label: "Clear", href: `/booking/${id}` },
   ];
-
-  console.log(searchParams.get("type"));
 
   useEffect(() => {
     const busses = localStorage.getItem("busDetails");
@@ -32,7 +36,17 @@ const BusBooking = () => {
   }, []);
 
   console.log(seatLayout);
-  
+
+  const generateSeats = (seatsArr: SeatingDetails[] | SeatingDetails[][]) =>
+    seatsArr.map((seats, index) => (
+      <div key={index} className="flex gap-6 my-2">
+        {Array.isArray(seats) ? (
+          seats.map((seat) => <BusSeat data={seat} key={seat.id} />)
+        ) : (
+          <BusSeat data={seats} key={seats.id} />
+        )}
+      </div>
+    ));
 
   return (
     <div>
@@ -59,6 +73,30 @@ const BusBooking = () => {
         <div>
           <BusTypeDropdown items={busItems} />
         </div>
+      </section>
+
+      <section></section>
+
+      {/* Bus layout */}
+      <section className="flex flex-wrap justify-center items-center min-h-screen sm:min-h-[70vh] px-4 -rotate-90 sm:rotate-0">
+        {seatLayout &&
+          (type === "lower" ? (
+            <div>
+              <div>{generateSeats(seatLayout.lower.first)}</div>
+              <div className="mt-10 flex gap-6">
+                {generateSeats(seatLayout.lower.second)}
+              </div>
+            </div>
+          ) : type === "upper" ? (
+            <div>
+              <div>{generateSeats(seatLayout.upper.first)}</div>
+              <div className="mt-10 flex gap-6">
+                {generateSeats(seatLayout.upper.second)}
+              </div>
+            </div>
+          ) : (
+            "null"
+          ))}
       </section>
     </div>
   );

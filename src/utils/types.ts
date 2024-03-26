@@ -4,13 +4,13 @@ export type HeaderItems = {
 };
 
 export interface SeatLayoutType {
-  lower?: {
-    first?: SeatingDetails[];
-    second?: SeatingDetails[];
-  };
-  upper?: {
+  lower: {
     first: SeatingDetails[];
-    second?: SeatingDetails[];
+    second: SeatingDetails[];
+  };
+  upper: {
+    first: SeatingDetails[];
+    second: SeatingDetails[];
   };
 }
 
