@@ -3,10 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { generateSeats } from "../../utils/helpers/generate-seats";
 import { useSeatState } from "../../utils/store/seat-state";
-import {
-  BusDetailsType,
-  ReducerActionType
-} from "../../utils/types";
+import { BusDetailsType, ReducerActionType } from "../../utils/types";
 import BusTypeDropdown from "../dropdown-bus-type";
 
 const BusBooking = () => {
@@ -15,7 +12,7 @@ const BusBooking = () => {
   );
 
   // @ts-ignore
-  const { dispatch, seatState} = useSeatState();
+  const { dispatch, seatState, selectedSeats } = useSeatState();
 
   const { id } = useParams();
   const [searchParams] = useSearchParams();
@@ -68,7 +65,32 @@ const BusBooking = () => {
         </div>
       </section>
 
-      <section></section>
+      <section className="bg-slate-100 px-6 md:px-12 py-2 rounded-lg flex flex-col md:flex-row md:justify-between md:items-center mt-4 min-h-32 md:min-h-20">
+        <div className="order-2 md:order-1 mt-4 md:mt-0">
+          <h4 className="font-semibold">Selected seats</h4>
+          <ul className="flex gap-2">
+            {selectedSeats.map((seat: number, index: number) => (
+              <li key={seat} className="font-bold">
+                {seat}
+                {index !== selectedSeats.length - 1 && ","}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <ul className="flex items-center gap-4 order-1 md:order-2">
+          <li>
+            <div className="h-6 w-6 border-green-500 bg-green-400/50 rounded"></div>
+            Selected
+          </li>
+          <li>
+            <div className="h-6 w-6 bg-white border rounded"></div>Available
+          </li>
+          <li>
+            <div className="h-6 w-6 border bg-slate-300 rounded"></div>
+            N/A
+          </li>
+        </ul>
+      </section>
 
       {/* Bus layout */}
       <section className="flex flex-wrap justify-center items-center min-h-screen sm:min-h-[70vh] px-4 -rotate-90 sm:rotate-0">

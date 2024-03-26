@@ -56,7 +56,7 @@ const SeatContextProvider = ({ children }: PropsWithChildren) => {
         return layoutPayload.seatLayout;
 
       default:
-        return initialState;
+        return state;
     }
   };
 
