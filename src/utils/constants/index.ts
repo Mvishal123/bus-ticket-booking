@@ -7,17 +7,18 @@ export const headerDropdownItems: HeaderItems[] = [
 
 // Bus details
 export const mockBusDetails = {
+  busNumber: 1,
   from: "Bangalore",
   to: "Chennai",
   busBrand: "ExpressTravel",
   duration: "6 hours",
   pickup: "Majestic Bus Stand, Bangalore",
   arrival: "Koyambedu Bus Terminal, Chennai",
+  totalSeats: 40,
   seatsLeft: 30,
   busType: "A/C Sleeper (2+1)",
-  busNumber: 123,
   ratings: 4.5,
   startTime: "10:00 PM",
   arrivalTime: "4:00 AM",
-  price: "1499"
+  price: "1499",
 };

@@ -31,12 +31,27 @@ const BusCard = () => {
       </div>
 
       {/* next section */}
-      <div className="mt-4">
-        <div className="flex items-center gap-1">
-          <BusFront strokeWidth={1} className="h-4 w-4" />
-          <span className="text-xs font-semibold">{busDetails.busBrand}</span>
+      <div className="mt-4 flex justify-between items-center">
+        <div>
+          <div className="flex items-center gap-1">
+            <BusFront strokeWidth={1} className="h-4 w-4" />
+            <span className="text-xs font-semibold">{busDetails.busBrand}</span>
+          </div>
+          <p className="text-xs text-slate-400">{busDetails.busType}</p>
         </div>
-        <p className="text-xs text-slate-400">{busDetails.busType}</p>
+        <div className="flex items-center gap-1 text-slate-400">
+          <h4 className="text-xs">
+            <span
+              className={`text-lg font-semibold ${
+                busDetails.seatsLeft > 10 ? "text-green-500" : "text-red-500"
+              }`}
+            >
+              {busDetails.seatsLeft}
+            </span>{" "}
+            seats
+          </h4>
+          <span className="text-xs">/{busDetails.totalSeats}</span>
+        </div>
       </div>
 
       {/* next section */}
