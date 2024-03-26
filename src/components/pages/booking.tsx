@@ -8,7 +8,7 @@ const Booking = () => {
 
       <div className="flex flex-wrap mt-6">
         {mockBusDetails.map((bus, index) => (
-          <BusCard busDetails={bus} key={index}/>
+          <BusCard busDetails={bus} key={index} />
         ))}
       </div>
     </div>

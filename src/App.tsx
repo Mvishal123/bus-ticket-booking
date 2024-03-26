@@ -1,9 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/header";
-import Landing from "./components/pages/landing";
 import Booking from "./components/pages/booking";
+import Landing from "./components/pages/landing";
 
 const App = () => {
+
   return (
     <div className="">
       <Header />

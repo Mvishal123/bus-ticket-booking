@@ -2,8 +2,11 @@ import { ChevronRight } from "lucide-react";
 import { busImage } from "../../assets";
 import BusCard from "../bus-card";
 import { mockBusDetails } from "../../utils/constants";
+import { useContext } from "react";
+import { BusContext } from "../../utils/store/bus-state";
 
 const Landing = () => {
+  const { busDetails } = useContext(BusContext);
   return (
     <div className="">
       <section className="bg-slate-100 h-[50vh] rounded-xl grid grid-cols-1 md:grid-cols-2 ">
@@ -40,8 +43,8 @@ const Landing = () => {
         </div>
 
         <div className="mt-6 flex gap-6">
-          {mockBusDetails.map((bus, index) => (
-            <BusCard key={index} busDetails={bus}/>
+          {busDetails.map((bus, index) => (
+            <BusCard key={index} busDetails={bus} />
           ))}
         </div>
       </section>

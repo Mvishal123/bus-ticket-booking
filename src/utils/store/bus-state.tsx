@@ -1,15 +1,26 @@
-import { createContext, useContext } from "react"
-import { BusDetails } from "../types"
+import React, { createContext, useEffect, useState } from "react";
+import { mockBusDetails } from "../constants";
+import { BusDetails } from "../types";
 
-interface BusContextType {
-    busDetails: BusDetails[], 
-    
-} 
+type BusContextType = {
+  busDetails: BusDetails[];
+};
 
-const BusState = () => {
+export const BusContext = createContext<BusContextType>({ busDetails: [] });
+
+const BusContextProvider = ({ children }: { children: React.ReactNode }) => {
+  const [busDetails, setBusdetails] = useState<BusDetails[]>([]);
+
+  useEffect(() => {
+    if (busDetails.length === 0) {
+      localStorage.setItem("busDetails", JSON.stringify(mockBusDetails));
+      const busses = JSON.parse(localStorage.getItem("busDetails")!);
+      setBusdetails(busses);
+    }
+  }, [busDetails]);
   return (
-    <div>BusState</div>
-  )
-}
+    <BusContext.Provider value={{ busDetails }}>{children}</BusContext.Provider>
+  );
+};
 
-export default BusState 
+export default BusContextProvider;
