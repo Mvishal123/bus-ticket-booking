@@ -50,3 +50,18 @@ export interface CustomerDetails {
   lastName: string;
   tickets?: { busId: string; seatNumber: number }[];
 }
+
+
+// Seat layout 
+export enum ReducerActionType {
+  SELECT_SEAT = "SELECT_SEAT",
+  SET_SEAT = "SET_SEAT",
+}
+
+export type ReducerPayload = { seatNumber: number } | { seatLayout: SeatLayoutType };
+
+export type ReducerAction = {
+  type: ReducerActionType;
+  payload: ReducerPayload;
+  busId: string
+}
