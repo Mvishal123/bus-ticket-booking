@@ -5,7 +5,6 @@ import Landing from "./components/pages/landing";
 import BusBooking from "./components/pages/bus-booking";
 
 const App = () => {
-
   return (
     <div className="">
       <Header />

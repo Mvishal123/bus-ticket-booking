@@ -3,12 +3,19 @@ import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { generateSeats } from "../../utils/helpers/generate-seats";
 import { useSeatState } from "../../utils/store/seat-state";
-import { BusDetailsType, ReducerActionType } from "../../utils/types";
+import {
+  BusDetailsType,
+  ReducerActionType
+} from "../../utils/types";
 import BusTypeDropdown from "../dropdown-bus-type";
 
 const BusBooking = () => {
+  const [busDetails, setBusdetails] = useState<BusDetailsType | undefined>(
+    undefined
+  );
+
   // @ts-ignore
-  const { dispatch, seatState, busDetails } = useSeatState();
+  const { dispatch, seatState} = useSeatState();
 
   const { id } = useParams();
   const [searchParams] = useSearchParams();
@@ -19,6 +26,20 @@ const BusBooking = () => {
     { label: "Lower", href: `/booking/${id}?type=lower` },
     { label: "Clear", href: `/booking/${id}` },
   ];
+
+  useEffect(() => {
+    const busses = localStorage.getItem("busDetails");
+    if (busses) {
+      const parsedBusses: BusDetailsType[] = JSON.parse(busses);
+      const bus = parsedBusses.find((b) => b.id == id);
+      setBusdetails(bus);
+      dispatch({
+        type: ReducerActionType.SET_SEAT,
+        payload: { seatLayout: bus?.seatLayout! },
+      });
+    }
+  }, []);
+  console.log(seatState);
 
   return (
     <div>
@@ -54,16 +75,16 @@ const BusBooking = () => {
         {seatState &&
           (type === "lower" ? (
             <div>
-              <div>{generateSeats(seatState.lower.first)}</div>
+              <div>{generateSeats(seatState.lower.first, busDetails?.id!)}</div>
               <div className="mt-10 flex gap-6">
-                {generateSeats(seatState.lower.second)}
+                {generateSeats(seatState.lower.second, busDetails?.id!)}
               </div>
             </div>
           ) : type === "upper" ? (
             <div>
-              <div>{generateSeats(seatState.upper.first)}</div>
+              <div>{generateSeats(seatState.upper.first, busDetails?.id!)}</div>
               <div className="mt-10 flex gap-6">
-                {generateSeats(seatState.upper.second)}
+                {generateSeats(seatState.upper.second, busDetails?.id!)}
               </div>
             </div>
           ) : (

@@ -1,3 +1,5 @@
+import { selectedSeatType } from "./store/seat-state";
+
 export type HeaderItems = {
   label: string;
   href: string;
@@ -51,18 +53,20 @@ export interface CustomerDetails {
   tickets?: { busId: string; seatNumber: number }[];
 }
 
-
-// Seat layout 
+// Seat layout
 export enum ReducerActionType {
   SELECT_SEAT = "SELECT_SEAT",
   SET_SEAT = "SET_SEAT",
-  TOGGLE_SELECT = "TOGGLE_SELECT", 
+  TOGGLE_SELECT = "TOGGLE_SELECT",
 }
 
-export type ReducerPayload = { seatNumber: number } | { seatLayout: SeatLayoutType };
+export type ReducerPayload =
+  | { seatNumber: number }
+  | { seatLayout: SeatLayoutType }
+  | selectedSeatType;
 
 export type ReducerAction = {
   type: ReducerActionType;
   payload: ReducerPayload;
-  busId?: string
-}
+  busId?: string;
+};

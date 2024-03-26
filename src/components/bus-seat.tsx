@@ -3,22 +3,25 @@ import { ReducerActionType, SeatingDetails, SeatingType } from "../utils/types";
 
 interface BusSeatProps {
   data: SeatingDetails;
+  busId: string;
 }
-const BusSeat = ({ data }: BusSeatProps) => {
-  const isBooked = data.selected;
+const BusSeat = ({ data, busId }: BusSeatProps) => {
+  const isBooked = !!data.booked;
   // @ts-ignore
-  const { dispatch, seatState } = useSeatState();
+  const { dispatch, seatState, selectedSeats } = useSeatState();
 
+  const selected = selectedSeats.includes(data.seatNumber);
   return (
     <button
-      className={`${
-        isBooked && "cursor-not-allowed bg-slate-100"
+      className={`${isBooked && "cursor-not-allowed bg-slate-100"} ${
+        selected && "border-green-500 bg-green-400/50"
       } border-2 rounded w-12 sm:w-20 py-2`}
       disabled={isBooked}
       onClick={() =>
         dispatch({
-          type: ReducerActionType.TOGGLE_SELECT,
+          type: ReducerActionType.SELECT_SEAT,
           payload: { seatNumber: data.seatNumber, seatType: data.type },
+          busId: busId,
         })
       }
     >

@@ -1,57 +1,54 @@
 import {
   createContext,
+  useReducer,
   Dispatch,
   PropsWithChildren,
   useContext,
-  useEffect,
-  useReducer,
   useState,
 } from "react";
 import {
   BusDetailsType,
   ReducerAction,
   ReducerActionType,
+  SeatingDetails,
   SeatingType,
   SeatLayoutType,
 } from "../types";
 
+export type selectedSeatType = { seatNumber: number; type: SeatingType };
 const SeatContext = createContext<
   | {
       dispatch: Dispatch<ReducerAction>;
       seatState: SeatLayoutType;
-      busDetails: BusDetailsType | undefined;
+      selectedSeats: number[];
     }
   | undefined
 >(undefined);
 
 const SeatContextProvider = ({ children }: PropsWithChildren) => {
   const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
-  const [busDetails, setBusdetails] = useState<BusDetailsType | undefined>(
-    undefined
-  );
-
-  const id = window.location.pathname.split("/")[2];
-
-  useEffect(() => {
-    const busses = localStorage.getItem("busDetails");
-    if (busses) {
-      const parsedBusses: BusDetailsType[] = JSON.parse(busses);
-      const bus = parsedBusses.find((b) => b.id == id);
-      setBusdetails(bus);
-      dispatch({
-        type: ReducerActionType.SET_SEAT,
-        payload: { seatLayout: bus?.seatLayout! },
-      });
-    }
-  }, []);
 
   const reducer = (
     state: SeatLayoutType,
     action: ReducerAction
   ): SeatLayoutType => {
-    const { type, payload } = action;
+    const { type, payload, busId } = action;
     switch (type) {
       case ReducerActionType.SELECT_SEAT:
+        const seatPayload = payload as {
+          seatNumber: number;
+          seatType: SeatingType;
+        };
+
+        if (selectedSeats.includes(seatPayload?.seatNumber)) {
+          const filteredArr = selectedSeats.filter(
+            (seat) => seat !== seatPayload.seatNumber
+          );
+          setSelectedSeats(filteredArr);
+        } else {
+          setSelectedSeats([...selectedSeats, seatPayload.seatNumber]);
+        }
+
         return state;
 
       case ReducerActionType.SET_SEAT:
@@ -66,11 +63,52 @@ const SeatContextProvider = ({ children }: PropsWithChildren) => {
         const type = seatType === SeatingType.UPPER ? "upper" : "lower";
         const busdetails = localStorage.getItem("busDetails");
         if (busdetails) {
-          const parsedBusDetails = JSON.parse(busdetails);
-          console.log({ parsedBusDetails });
-        }
+          const parsedBusDetails: BusDetailsType[] = JSON.parse(busdetails);
+          const currentBus = parsedBusDetails.find((bus) => bus.id === busId)
+            ?.seatLayout!;
 
+          const updatedLayout = currentBus[type];
+          console.log(seatNumber);
+
+          const newLayoutFirst = updatedLayout.first?.map((seats) => {
+            if (Array.isArray(seats)) {
+              return seats.map((seat) => {
+                if (seat.seatNumber === seatNumber) {
+                  return { ...seat, selected: !seat.selected };
+                }
+                return seat;
+              });
+            } else {
+              if (seats.seatNumber === seatNumber) {
+                return { ...seats, selected: !seats.selected };
+              }
+              return seats;
+            }
+          });
+
+          const newLayoutSecond = updatedLayout.second?.map((seats) => {
+            if (Array.isArray(seats)) {
+              return seats.map((seat) => {
+                if (seat.seatNumber === seatNumber) {
+                  return { ...seat, selected: !seat.selected };
+                }
+                return seat;
+              });
+            } else {
+              if (seats.seatNumber === seatNumber) {
+                return { ...seats, selected: !seats.selected };
+              }
+              return seats;
+            }
+          });
+          let finalLayoutChange = currentBus;
+          finalLayoutChange[type].first = newLayoutFirst as SeatingDetails[];
+          finalLayoutChange[type].second = newLayoutSecond as SeatingDetails[];
+
+          console.log(finalLayoutChange[type]);
+        }
         return state;
+
       default:
         return initialState;
     }
@@ -88,9 +126,11 @@ const SeatContextProvider = ({ children }: PropsWithChildren) => {
   };
 
   const [seatState, dispatch] = useReducer(reducer, initialState);
+  console.log(selectedSeats);
+  
 
   return (
-    <SeatContext.Provider value={{ dispatch, seatState, busDetails }}>
+    <SeatContext.Provider value={{ dispatch, seatState, selectedSeats }}>
       {children}
     </SeatContext.Provider>
   );
