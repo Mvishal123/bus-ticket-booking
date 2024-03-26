@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import { BusDetailsType } from "../../utils/types";
+import { BusDetailsType, SeatLayoutType } from "../../utils/types";
 import { ArrowRight, ArrowRightFromLine } from "lucide-react";
 import DropdownMenu from "../dropdown-menu";
 import BusTypeDropdown from "../dropdown-bus-type";
@@ -9,6 +9,7 @@ const BusBooking = () => {
   const [busDetails, setBusdetails] = useState<BusDetailsType | undefined>(
     undefined
   );
+  const [seatLayout, setSeatLayout] = useState<SeatLayoutType | undefined>();
 
   const { id } = useParams();
   const [searchParams] = useSearchParams();
@@ -26,8 +27,12 @@ const BusBooking = () => {
       const parsedBusses: BusDetailsType[] = JSON.parse(busses);
       const bus = parsedBusses.find((b) => b.id == id);
       setBusdetails(bus);
+      setSeatLayout(bus?.seatLayout);
     }
   }, []);
+
+  console.log(seatLayout);
+  
 
   return (
     <div>
