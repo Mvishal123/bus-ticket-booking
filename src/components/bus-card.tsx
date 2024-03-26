@@ -1,13 +1,15 @@
 import { BusFront } from "lucide-react";
-import { mockBusDetails } from "../utils/constants";
 import { Link } from "react-router-dom";
+import { BusDetails } from "../utils/types";
 
-const BusCard = () => {
-  const busDetails = mockBusDetails;
+interface BusCardProps {
+  busDetails: BusDetails;
+}
+const BusCard = ({ busDetails }: BusCardProps) => {
   return (
     <Link
       className="inline-block w-[350px]  px-4 py-2 rounded-lg border-t cursor-pointer shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
-      to={`/booking`}
+      to={`/booking/${busDetails.id}`}
     >
       <div className="flex justify-between items-center">
         <div className="text-center">

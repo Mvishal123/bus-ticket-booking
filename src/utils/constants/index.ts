@@ -6,8 +6,8 @@ export const headerDropdownItems: HeaderItems[] = [
 ];
 
 // Bus details
-export const mockBusDetails = {
-  busNumber: 1,
+export const mockBusDetails = [{
+  id: 1,
   from: "Bangalore",
   to: "Chennai",
   busBrand: "ExpressTravel",
@@ -21,4 +21,4 @@ export const mockBusDetails = {
   startTime: "10:00 PM",
   arrivalTime: "4:00 AM",
   price: "1499",
-};
+}];

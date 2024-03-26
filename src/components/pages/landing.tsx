@@ -1,6 +1,7 @@
 import { ChevronRight } from "lucide-react";
 import { busImage } from "../../assets";
 import BusCard from "../bus-card";
+import { mockBusDetails } from "../../utils/constants";
 
 const Landing = () => {
   return (
@@ -39,11 +40,9 @@ const Landing = () => {
         </div>
 
         <div className="mt-6 flex gap-6">
-          {Array(1)
-            .fill(0)
-            .map((_, index) => (
-              <BusCard key={index} />
-            ))}
+          {mockBusDetails.map((bus, index) => (
+            <BusCard key={index} busDetails={bus}/>
+          ))}
         </div>
       </section>
     </div>
