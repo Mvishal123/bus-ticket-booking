@@ -1,14 +1,16 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { HeaderItems } from "../utils/types";
 
-interface DropdownMenuProps {
+interface BusTypeDropdownProps {
   items: HeaderItems[];
 }
 
-const DropdownMenu = ({ items }: DropdownMenuProps) => {
-  const pathname = useLocation().pathname;
+const BusTypeDropdown = ({ items }: BusTypeDropdownProps) => {
+  //   const pathname = useLocation().pathname;
+  const [searchParams] = useSearchParams();
+  const type = searchParams.get("type");
 
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
@@ -18,18 +20,14 @@ const DropdownMenu = ({ items }: DropdownMenuProps) => {
 
   useEffect(() => {
     setIsExpanded(false);
-  }, [pathname]);
+  }, [searchParams]);
   return (
     <div className="relative">
       <button
-        className="w-36 border-2 border-slate-300 px-1 md:px-3 py-1 rounded flex items-center justify-center gap-2"
+        className=" border-2 border-slate-300 px-1 md:px-3 py-1 rounded flex items-center justify-center gap-2"
         onClick={dropdownToggle}
       >
-        {pathname === "/"
-          ? "Get started"
-          : pathname === "/booking"
-          ? "booking"
-          : "view"}
+        {type == null ? "Type" : type === "upper" ? "Upper" : "Lower"}
         {isExpanded && <ChevronDown />}
         {!isExpanded && <ChevronUp />}
       </button>
@@ -54,4 +52,4 @@ const DropdownMenu = ({ items }: DropdownMenuProps) => {
   );
 };
 
-export default DropdownMenu;
+export default BusTypeDropdown;

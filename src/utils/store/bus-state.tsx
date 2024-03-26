@@ -1,15 +1,15 @@
 import React, { createContext, useEffect, useState } from "react";
 import { mockBusDetails } from "../constants";
-import { BusDetails } from "../types";
+import { BusDetailsType } from "../types";
 
 type BusContextType = {
-  busDetails: BusDetails[];
+  busDetails: BusDetailsType[];
 };
 
 export const BusContext = createContext<BusContextType>({ busDetails: [] });
 
 const BusContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [busDetails, setBusdetails] = useState<BusDetails[]>([]);
+  const [busDetails, setBusdetails] = useState<BusDetailsType[]>([]);
 
   useEffect(() => {
     if (busDetails.length === 0) {

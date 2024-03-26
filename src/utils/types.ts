@@ -3,8 +3,8 @@ export type HeaderItems = {
   href: string;
 };
 
-export interface BusDetails {
-  id: number;
+export interface BusDetailsType {
+  id: string;
   from: string;
   to: string;
   busBrand: string;
@@ -18,4 +18,23 @@ export interface BusDetails {
   startTime: string;
   arrivalTime: string;
   price: string;
+}
+
+export enum SeatingType {
+  UPPER = "Upper",
+  LOWER = "Lower",
+}
+export interface SeatingDetails {
+  id: string;
+  type: SeatingType;
+  seatNumber: number;
+  booked?: CustomerDetails;
+
+}
+
+export interface CustomerDetails {
+  id: string;
+  firstName: string;
+  lastName: string;
+  tickets?: { busId: string; seatNumber: number }[];
 }

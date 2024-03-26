@@ -1,9 +1,8 @@
 import { ChevronRight } from "lucide-react";
-import { busImage } from "../../assets";
-import BusCard from "../bus-card";
-import { mockBusDetails } from "../../utils/constants";
 import { useContext } from "react";
+import { busImage } from "../../assets";
 import { BusContext } from "../../utils/store/bus-state";
+import BusCard from "../bus-card";
 
 const Landing = () => {
   const { busDetails } = useContext(BusContext);
