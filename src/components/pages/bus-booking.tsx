@@ -1,4 +1,4 @@
-import { ArrowRight, Divide } from "lucide-react";
+import { ArrowRight, Bus, BusFront, Divide } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import {
@@ -95,7 +95,10 @@ const BusBooking = () => {
               </div>
             </div>
           ) : (
-            "null"
+            <div className="rotate-90 sm:rotate-0 flex flex-col items-center text-slate-400">
+              <Bus className="h-16 w-16"/>
+              <h1 className="text-4xl font-semibold  italic">Please select a deck</h1>
+            </div>
           ))}
       </section>
     </div>

@@ -35,7 +35,7 @@ const DropdownMenu = ({ items }: DropdownMenuProps) => {
       </button>
 
       {isExpanded && (
-        <div className="absolute bg-slate-50 w-full border mt-2">
+        <div className="absolute bg-slate-50 w-full border mt-2 z-10">
           {items.map((item) => (
             <Link key={item.label} to={item.href}>
               <div

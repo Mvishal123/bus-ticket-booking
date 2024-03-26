@@ -7,7 +7,7 @@ import BusBooking from "./components/pages/bus-booking";
 const App = () => {
 
   return (
-    <div className="overflow-hidden">
+    <div className="">
       <Header />
       <div className="my-6 px-6 md:px-12">
         <Routes>
