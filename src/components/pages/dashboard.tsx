@@ -1,8 +1,8 @@
+import { getAllPassengerDetials } from "../../utils/helpers/get-passengers";
 
 const Dashboard = () => {
-  return (
-    <div>Dashboard</div>
-  )
-}
+  getAllPassengerDetials();
+  return <div>Dashboard</div>;
+};
 
-export default Dashboard
+export default Dashboard;
