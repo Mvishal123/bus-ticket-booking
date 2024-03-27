@@ -14,9 +14,9 @@ const Dashboard = () => {
   }, []);
 
   // console.log(passengers);
-  
+
   return (
-    <div>
+    <>
       <div>
         <h1 className="text-2xl md:text-4xl font-bold">Admin dashboard</h1>
       </div>
@@ -29,14 +29,14 @@ const Dashboard = () => {
         )}
 
         {passengers.length > 0 && (
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-4 justify-center sm:justify-start">
             {passengers.map((passenger, index) => (
               <PassengerCard data={passenger} key={index} />
             ))}
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 

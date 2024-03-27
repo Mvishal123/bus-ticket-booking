@@ -3,6 +3,7 @@ import { PassengersType } from "../utils/types";
 import { ArrowRight, Pencil, Plus, Trash } from "lucide-react";
 import { convertDate } from "../utils/helpers/convert-date";
 import { updatePassengers } from "../utils/helpers/update-passengers";
+import { deletePassenger } from "../utils/helpers/delete-passenger";
 
 const PassengerCard = ({ data }: { data: PassengersType }) => {
   const [isEditable, setIsEditable] = useState<boolean>(false);
@@ -31,6 +32,16 @@ const PassengerCard = ({ data }: { data: PassengersType }) => {
     setIsEditable(false);
   };
 
+  const onDelete = () => {
+    const deleteStatus = deletePassenger(data);
+    if (deleteStatus) {
+      alert("Passenger removed sucessfully");
+      window.location.reload();
+    } else {
+      alert("Something went wrong");
+    }
+  };
+
   const updateHandler = () => {
     const { firstname, lastname, email } = formData;
     const details = { ...data, firstname, lastname, email };
@@ -39,15 +50,15 @@ const PassengerCard = ({ data }: { data: PassengersType }) => {
     const update = updatePassengers(details);
     if (update) {
       alert("Passenger information edited successfully");
+      window.location.reload();
     } else {
       alert("Something went wrong");
+      onCloseEdit();
     }
-
-    window.location.reload();
   };
 
   return (
-    <div className="min-w-[300px] border px-3 py-1 rounded">
+    <div className="min-w-[300px] border px-3 py-2 rounded">
       {isEditable && (
         <>
           <div className="border-b py-3 flex items-center justify-between">
@@ -124,7 +135,10 @@ const PassengerCard = ({ data }: { data: PassengersType }) => {
               >
                 <Pencil className="w-4 h-4 " />
               </button>
-              <button className="p-2 border border-red-300/50 hover:border-red-300 rounded bg-red-100 hover:text-red-600 text-red-700/50">
+              <button
+                className="p-2 border border-red-300/50 hover:border-red-300 rounded bg-red-100 hover:text-red-600 text-red-700/50"
+                onClick={onDelete}
+              >
                 <Trash className="w-4 h-4 " />
               </button>
             </div>
@@ -141,8 +155,8 @@ const PassengerCard = ({ data }: { data: PassengersType }) => {
                 <h2 className="font-semibold">Email</h2>: {data.email}
               </li>
               <li className="flex items-center">
-                <h2 className="font-semibold">Seat number</h2>:{" "}
-                {data.seatNumber}
+                <h2 className="font-semibold">Seat number</h2>:{data.seatNumber}
+                {data.seatType === "lower" ? "L" : "H"}
               </li>
               <li className="flex items-center">
                 <h2 className="font-semibold">Date of booking</h2>:{" "}
