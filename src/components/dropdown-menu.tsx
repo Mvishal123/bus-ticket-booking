@@ -29,7 +29,9 @@ const DropdownMenu = ({ items }: DropdownMenuProps) => {
           ? "Get started"
           : pathname === "/booking"
           ? "booking"
-          : "view"}
+          : pathname === "/dashboard"
+          ? "Dashboard"
+          : "View"}
         {isExpanded && <ChevronDown />}
         {!isExpanded && <ChevronUp />}
       </button>

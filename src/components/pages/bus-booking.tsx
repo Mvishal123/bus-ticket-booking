@@ -5,6 +5,7 @@ import { generateSeats } from "../../utils/helpers/generate-seats";
 import { useSeatState } from "../../utils/store/seat-state";
 import { BusDetailsType, ReducerActionType } from "../../utils/types";
 import BusTypeDropdown from "../dropdown-bus-type";
+import { getSeatCount } from "../../utils/helpers/get-seat-count";
 
 const BusBooking = () => {
   const [busDetails, setBusdetails] = useState<BusDetailsType | undefined>(
@@ -20,6 +21,9 @@ const BusBooking = () => {
       date?: Date;
     };
   }>({});
+
+  const seatsLeft =
+    busDetails?.totalSeats! - getSeatCount(busDetails?.id!) ?? null;
 
   // @ts-ignore
   const { dispatch, seatState, selectedSeats } = useSeatState();
@@ -51,7 +55,7 @@ const BusBooking = () => {
     <>
       {isBooking && (
         <div className="h-screen backdrop-blur-md absolute top-0 left-0 right-0 bottom-0 z-20 flex justify-center">
-          <div className="w-full md:w-[50%] bg-slate-100 border-x-2 md:border-slate-500 z-30 overflow-auto">
+          <div className="w-full md:w-[50%] bg-slate-50 border-x-2 md:border-slate-500 z-30 overflow-auto">
             <div className="flex justify-end p-6">
               <button className="font-bold" onClick={() => setIsBooking(false)}>
                 Close
@@ -59,7 +63,10 @@ const BusBooking = () => {
             </div>
             <div className="mt-6 flex flex-col gap-6 px-6 md:items-center ">
               {selectedSeats.map((seat: number) => (
-                <div key={seat} className="border-2 px-4 py-2 rounded">
+                <div
+                  key={seat}
+                  className="bg-white border-2 px-4 py-2 rounded-lg"
+                >
                   <h1 className="text-center font-bold text-lg">
                     Seat: {seat}
                   </h1>
@@ -124,7 +131,7 @@ const BusBooking = () => {
 
               <div className="mx-auto">
                 <button
-                  className="bg-gradient-to-r from-pink-500 to-rose-500 px-3 py-2 rounded-2xl"
+                  className="custom-red px-3 py-2 rounded-2xl text-white font-semibold"
                   onClick={() => {
                     const details = Object.values(bookingForm).map(
                       (obj, index) => {
@@ -225,10 +232,28 @@ const BusBooking = () => {
         </ul>
       </section>
 
-      <section className="flex justify-between mt-4">
-        <h1 className="text-2xl md:text-3xl ">Select seats</h1>
+      <section className="flex justify-between mt-4 items-center">
+        <div>
+          <h1 className="text-2xl md:text-3xl ">Select seats</h1>
+          {seatsLeft && busDetails && (
+            <div className="flex  items-center  gap-2">
+              <h3
+                className={`text-xl font-bold ${
+                  seatsLeft > 20
+                    ? "text-green-600"
+                    : seatsLeft > 15
+                    ? "text-orange-600"
+                    : "text-red-600"
+                }`}
+              >
+                {seatsLeft}
+              </h3>
+              <span className="text-sm">/{busDetails.totalSeats} left</span>
+            </div>
+          )}
+        </div>
         <button
-          className="bg-gradient-to-r from-pink-500 to-rose-500 px-3 py-1 rounded-full text-white font-bold"
+          className="custom-red px-3 py-1 rounded-lg text-white font-bold h-10"
           disabled={selectedSeats.length == 0}
           onClick={() => setIsBooking(true)}
         >

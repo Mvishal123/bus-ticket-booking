@@ -9,7 +9,7 @@ const Header = () => {
         <Link to="/">
           <h1 className="text-xl md:text-3xl font-bold text-slate-800">
             Ticket
-            <span className="bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
+            <span className="custom-text-red">
               booking
             </span>
             .com

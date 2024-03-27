@@ -1,11 +1,13 @@
 import { BusFront } from "lucide-react";
 import { Link } from "react-router-dom";
 import { BusDetailsType } from "../utils/types";
+import { getSeatCount } from "../utils/helpers/get-seat-count";
 
 interface BusCardProps {
   busDetails: BusDetailsType;
 }
 const BusCard = ({ busDetails }: BusCardProps) => {
+  const seatsLeft = busDetails.totalSeats - getSeatCount(busDetails.id);
   return (
     <Link
       className="inline-block w-[350px]  px-4 py-2 rounded-lg border-t cursor-pointer shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
@@ -46,10 +48,14 @@ const BusCard = ({ busDetails }: BusCardProps) => {
           <h4 className="text-xs">
             <span
               className={`text-lg font-semibold ${
-                busDetails.seatsLeft > 10 ? "text-green-500" : "text-red-500"
+                seatsLeft > 20
+                  ? "text-green-600"
+                  : seatsLeft > 15
+                  ? "text-orange-600"
+                  : "text-red-600"
               }`}
             >
-              {busDetails.seatsLeft}
+              {seatsLeft}
             </span>{" "}
             seats
           </h4>
@@ -63,7 +69,7 @@ const BusCard = ({ busDetails }: BusCardProps) => {
       {/* next section */}
       <div className="flex justify-between items-center h-14">
         <h4 className="font-bold">₹{busDetails.price}</h4>
-        <button className="px-3 py-1 text-sm bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold rounded-full">
+        <button className="px-3 py-1 text-sm custom-red text-white font-semibold rounded-full">
           Book
         </button>
       </div>

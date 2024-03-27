@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { busImage } from "../../assets";
 import { BusContext } from "../../utils/store/bus-state";
 import BusCard from "../bus-card";
+import { Link } from "react-router-dom";
 
 const Landing = () => {
   const { busDetails } = useContext(BusContext);
@@ -24,7 +25,7 @@ const Landing = () => {
         <div className="flex justify-center h-full items-center order-1 md:order-2">
           <h1 className="max-w-[90%] text-4xl font-bold tracking-tight">
             Board the Future: Seamless Bus Ticket{" "}
-            <span className="bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
+            <span className="custom-text-red">
               Booking
             </span>{" "}
             Experience
@@ -36,7 +37,7 @@ const Landing = () => {
         <div className="flex justify-between">
           <h1 className="text-2xl font-semibold">Book now</h1>
           <div className="flex items-center gap-2 cursor-pointer hover:text-red-400">
-            <span>See all</span>
+            <Link to="/booking">See all</Link>
             <ChevronRight className="h-4 w-4" />
           </div>
         </div>

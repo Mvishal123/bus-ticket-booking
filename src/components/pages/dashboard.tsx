@@ -6,14 +6,11 @@ import PassengerCard from "../passenger-card";
 
 const Dashboard = () => {
   const [passengers, setPassengers] = useState<PassengersType[]>([]);
-  console.log(passengers);
 
   useEffect(() => {
     const passengerDetails = getAllPassengerDetails();
     setPassengers(passengerDetails);
   }, []);
-
-  // console.log(passengers);
 
   return (
     <>

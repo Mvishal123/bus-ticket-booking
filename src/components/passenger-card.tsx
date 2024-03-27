@@ -45,7 +45,6 @@ const PassengerCard = ({ data }: { data: PassengersType }) => {
   const updateHandler = () => {
     const { firstname, lastname, email } = formData;
     const details = { ...data, firstname, lastname, email };
-    console.log({ details });
 
     const update = updatePassengers(details);
     if (update) {
@@ -105,7 +104,7 @@ const PassengerCard = ({ data }: { data: PassengersType }) => {
               />
             </div>
             <button
-              className="bg-gradient-to-r from-pink-500 to-rose-500 px-2 font-semibold text-white rounded mt-1 w-full"
+              className="custom-red px-2 font-semibold text-white rounded mt-1 w-full"
               onClick={updateHandler}
               type="button"
             >
