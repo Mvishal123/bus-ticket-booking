@@ -36,7 +36,7 @@ export interface BusDetailsType {
 
 export interface SeatingDetails {
   id: string;
-  type: "lower" | "upper";
+  type: SeatType;
   seatNumber: number;
   booked?: CustomerDetails;
   selected?: boolean;
@@ -50,6 +50,8 @@ export interface CustomerDetails {
   seatNumber: number;
   busId: string;
 }
+
+export type SeatType = "upper" | "lower";
 
 // Seat layout
 export enum ReducerActionType {
@@ -82,11 +84,13 @@ export type ReducerAction = {
 
 export type PassengersType = {
   busBrand: string;
+  busId: string;
   date: Date;
   email: string;
   firstname: string;
   from: string;
   lastname: string;
   seatNumber: number;
+  seatType: SeatType
   to: string;
 };

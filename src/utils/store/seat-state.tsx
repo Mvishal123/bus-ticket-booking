@@ -12,11 +12,11 @@ import {
   ReducerAction,
   ReducerActionType,
   SeatingDetails,
-  SeatingType,
   SeatLayoutType,
+  SeatType,
 } from "../types";
 
-export type selectedSeatType = { seatNumber: number; type: SeatingType };
+export type selectedSeatType = { seatNumber: number; type: SeatType };
 const SeatContext = createContext<
   | {
       dispatch: Dispatch<ReducerAction>;
@@ -38,7 +38,7 @@ const SeatContextProvider = ({ children }: PropsWithChildren) => {
       case ReducerActionType.SELECT_SEAT:
         const seatPayload = payload as {
           seatNumber: number;
-          seatType: SeatingType;
+          seatType: SeatType;
         };
 
         if (selectedSeats.includes(seatPayload?.seatNumber)) {
@@ -58,6 +58,7 @@ const SeatContextProvider = ({ children }: PropsWithChildren) => {
       case ReducerActionType.BOOK_TICKETS:
         const busDetails = localStorage.getItem("busDetails");
         const bookingPayload = payload as bookingDetails[];
+
         if (busDetails) {
           const parsedBusDetails = JSON.parse(busDetails);
           const currentBus: BusDetailsType = parsedBusDetails.find(
@@ -66,7 +67,7 @@ const SeatContextProvider = ({ children }: PropsWithChildren) => {
 
           let seating = { ...currentBus.seatLayout };
 
-          bookingPayload.map((booking, index) => {
+          bookingPayload.map((booking) => {
             const type = booking.seatNumber > 19 ? "upper" : "lower";
             seating[type].first = seating[type].first?.map((seat) =>
               Array.isArray(seat)
@@ -98,15 +99,14 @@ const SeatContextProvider = ({ children }: PropsWithChildren) => {
             );
             parsedBusDetails[currentIndex] = updatedBusLayout;
 
-            console.log();
-            
-
             localStorage.setItem(
               "busDetails",
               JSON.stringify(parsedBusDetails)
             );
           });
+          return state;
         }
+        return state;
 
       default:
         return state;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllPassengerDetials } from "../../utils/helpers/get-passengers";
+import { getAllPassengerDetails } from "../../utils/helpers/get-passengers";
 import { PassengersType } from "../../utils/types";
 import { Ghost } from "lucide-react";
 import PassengerCard from "../passenger-card";
@@ -9,9 +9,12 @@ const Dashboard = () => {
   console.log(passengers);
 
   useEffect(() => {
-    const passengerDetails = getAllPassengerDetials();
+    const passengerDetails = getAllPassengerDetails();
     setPassengers(passengerDetails);
   }, []);
+
+  // console.log(passengers);
+  
   return (
     <div>
       <div>

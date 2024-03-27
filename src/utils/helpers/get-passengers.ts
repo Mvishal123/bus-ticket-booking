@@ -1,17 +1,17 @@
 import { BusDetailsType, PassengersType } from "../types";
 
-export const getAllPassengerDetials = (): PassengersType[] => {
+export const getAllPassengerDetails = (): PassengersType[] => {
   const busDetails = localStorage.getItem("busDetails");
   const passengers: PassengersType[] = [];
   if (busDetails) {
-    const details = {};
     const parsedBusDetails: BusDetailsType[] = JSON.parse(busDetails);
 
-    parsedBusDetails.forEach((bus, index) => {
+    parsedBusDetails.forEach((bus) => {
       const busDetails = {
         busBrand: bus.busBrand,
         from: bus.from,
         to: bus.to,
+        busId: bus.id,
       };
 
       bus.seatLayout?.lower?.first?.forEach((seats) => {

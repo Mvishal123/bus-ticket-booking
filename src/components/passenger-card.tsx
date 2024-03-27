@@ -34,7 +34,16 @@ const PassengerCard = ({ data }: { data: PassengersType }) => {
   const updateHandler = () => {
     const { firstname, lastname, email } = formData;
     const details = { ...data, firstname, lastname, email };
-    updatePassengers(details);
+    console.log({ details });
+
+    const update = updatePassengers(details);
+    if (update) {
+      alert("Passenger information edited successfully");
+    } else {
+      alert("Something went wrong");
+    }
+
+    window.location.reload();
   };
 
   return (
