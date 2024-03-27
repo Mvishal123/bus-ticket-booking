@@ -1,4 +1,4 @@
-import { BusDetailsType, SeatingDetails, SeatLayoutType } from "../types";
+import { BusDetailsType, SeatingDetails } from "../types";
 
 export const getSeatCount = (busId: string): number => {
   const busDetails = localStorage.getItem("busDetails");
