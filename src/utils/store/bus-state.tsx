@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import { mockBusDetails } from "../constants";
-import { BusDetailsType, SeatingDetails } from "../types";
+import { BusDetailsType } from "../types";
 
 type BusContextType = {
   busDetails: BusDetailsType[];
