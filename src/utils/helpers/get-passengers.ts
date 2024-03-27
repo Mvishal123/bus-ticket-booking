@@ -1,6 +1,6 @@
 import { BusDetailsType, PassengersType } from "../types";
 
-export const getAllPassengerDetials = () => {
+export const getAllPassengerDetials = (): PassengersType[] => {
   const busDetails = localStorage.getItem("busDetails");
   const passengers: PassengersType[] = [];
   if (busDetails) {
@@ -111,7 +111,6 @@ export const getAllPassengerDetials = () => {
         }
       });
     });
-
-    console.log(passengers);
   }
+  return passengers;
 };

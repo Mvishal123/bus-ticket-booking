@@ -43,8 +43,8 @@ export interface SeatingDetails {
 }
 
 export interface CustomerDetails {
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   email: string;
   date: Date;
   seatNumber: number;
@@ -84,9 +84,9 @@ export type PassengersType = {
   busBrand: string;
   date: Date;
   email: string;
-  firstName: string;
+  firstname: string;
   from: string;
-  lastName: string;
+  lastname: string;
   seatNumber: number;
   to: string;
 };
