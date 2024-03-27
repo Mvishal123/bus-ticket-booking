@@ -5,7 +5,6 @@ import App from "./App.tsx";
 import "./index.css";
 import BusContextProvider from "./utils/store/bus-state.tsx";
 import SeatContextProvider from "./utils/store/seat-state.tsx";
-import "react-toastify/dist/ReactToastify.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
