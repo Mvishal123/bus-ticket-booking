@@ -1,11 +1,10 @@
-import { ArrowRight, Bus, Divide } from "lucide-react";
+import { ArrowRight, Bus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { generateSeats } from "../../utils/helpers/generate-seats";
 import { useSeatState } from "../../utils/store/seat-state";
 import { BusDetailsType, ReducerActionType } from "../../utils/types";
 import BusTypeDropdown from "../dropdown-bus-type";
-import { toast } from "react-toastify";
 
 const BusBooking = () => {
   const [busDetails, setBusdetails] = useState<BusDetailsType | undefined>(
@@ -59,7 +58,7 @@ const BusBooking = () => {
               </button>
             </div>
             <div className="mt-6 flex flex-col gap-6 px-6 md:items-center ">
-              {selectedSeats.map((seat: number, index: number) => (
+              {selectedSeats.map((seat: number) => (
                 <div key={seat} className="border-2 px-4 py-2 rounded">
                   <h1 className="text-center font-bold text-lg">
                     Seat: {seat}
@@ -145,10 +144,17 @@ const BusBooking = () => {
                       payload: details,
                       busId: id,
                     });
-                    toast.success("Tickets booked successfully", {
-                      position: "bottom-right",
-                    });
+
                     setIsBooking(false);
+                    alert(
+                      `Tickets booked successfully for Seats: ${selectedSeats
+                        .map((seat: number, index: number) => {
+                          return index !== selectedSeats.length - 1
+                            ? seat + ", "
+                            : seat;
+                        })
+                        .join("")}`
+                    );
                     window.location.reload();
                   }}
                   disabled={Object.values(bookingForm).some(

@@ -1,5 +1,5 @@
 import { useSeatState } from "../utils/store/seat-state";
-import { ReducerActionType, SeatingDetails, SeatingType } from "../utils/types";
+import { ReducerActionType, SeatingDetails } from "../utils/types";
 
 interface BusSeatProps {
   data: SeatingDetails;
