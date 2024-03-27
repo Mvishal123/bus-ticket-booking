@@ -7,8 +7,8 @@ interface BusSeatProps {
 }
 const BusSeat = ({ data, busId }: BusSeatProps) => {
   const isBooked = !!data.booked;
-  // @ts-ignore
-  const { dispatch, seatState, selectedSeats } = useSeatState();
+  // @ts-expect-error
+  const { dispatch, selectedSeats } = useSeatState();
 
   const selected = selectedSeats.includes(data.seatNumber);
   return (

@@ -42,13 +42,13 @@ const BusBooking = () => {
       setBusdetails(bus);
       dispatch({
         type: ReducerActionType.SET_SEAT,
-        payload: { seatLayout: bus?.seatLayout! },
+        payload: { seatLayout: bus!.seatLayout },
       });
     }
   }, []);
 
   return (
-    <div className="">
+    <>
       {isBooking && (
         <div className="h-screen backdrop-blur-md absolute top-0 left-0 right-0 bottom-0 z-20 flex justify-center">
           <div className="w-full md:w-[50%] bg-slate-100 border-x-2 md:border-slate-500 z-30 overflow-auto">
@@ -197,6 +197,11 @@ const BusBooking = () => {
         <div className="order-2 md:order-1 mt-4 md:mt-0">
           <h4 className="font-semibold">Selected seats</h4>
           <ul className="flex gap-2">
+            {selectedSeats.length === 0 && (
+              <p className="text-xs text-slate-500">
+                Select atleast 1 seat to proceed
+              </p>
+            )}
             {selectedSeats.map((seat: number, index: number) => (
               <li key={seat} className="font-bold">
                 {seat}
@@ -257,7 +262,7 @@ const BusBooking = () => {
             </div>
           ))}
       </section>
-    </div>
+    </>
   );
 };
 

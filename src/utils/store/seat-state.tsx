@@ -65,33 +65,37 @@ const SeatContextProvider = ({ children }: PropsWithChildren) => {
             (bus: SeatingDetails) => bus.id == busId
           );
 
-          let seating = { ...currentBus.seatLayout };
+          const seating = { ...currentBus.seatLayout };
 
           bookingPayload.map((booking) => {
             const type = booking.seatNumber > 19 ? "upper" : "lower";
-            seating[type].first = seating[type].first?.map((seat) =>
-              Array.isArray(seat)
-                ? seat.map((seats) =>
-                    seats.seatNumber === booking.seatNumber
-                      ? { ...seats, booked: { ...booking } }
-                      : seats
-                  )
-                : seat.seatNumber === booking.seatNumber
-                ? { ...seat, booked: { ...booking } }
-                : seat
-            ) as SeatingDetails[];
+            if (seating[type].first) {
+              seating[type].first = seating[type].first!.map((seat) =>
+                Array.isArray(seat)
+                  ? seat.map((seats) =>
+                      seats.seatNumber === booking.seatNumber
+                        ? { ...seats, booked: { ...booking } }
+                        : seats
+                    )
+                  : seat.seatNumber === booking.seatNumber
+                  ? { ...seat, booked: { ...booking } }
+                  : seat
+              ) as SeatingDetails[];
+            }
 
-            seating[type].second = seating[type].second?.map((seat) =>
-              Array.isArray(seat)
-                ? seat.map((seats) =>
-                    seats.seatNumber === booking.seatNumber
-                      ? { ...seats, booked: { ...booking } }
-                      : seats
-                  )
-                : seat.seatNumber === booking.seatNumber
-                ? { ...seat, booked: { ...booking } }
-                : seat
-            ) as SeatingDetails[];
+            if (seating[type].second) {
+              seating[type].second = seating[type].second!.map((seat) =>
+                Array.isArray(seat)
+                  ? seat.map((seats) =>
+                      seats.seatNumber === booking.seatNumber
+                        ? { ...seats, booked: { ...booking } }
+                        : seats
+                    )
+                  : seat.seatNumber === booking.seatNumber
+                  ? { ...seat, booked: { ...booking } }
+                  : seat
+              ) as SeatingDetails[];
+            }
 
             const updatedBusLayout = { ...currentBus, seatLayout: seating };
             const currentIndex = parsedBusDetails.findIndex(

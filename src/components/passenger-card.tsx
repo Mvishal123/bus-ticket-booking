@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { PassengersType } from "../utils/types";
 import { ArrowRight, Pencil, Plus, Trash } from "lucide-react";
+import React, { useState } from "react";
 import { convertDate } from "../utils/helpers/convert-date";
-import { updatePassengers } from "../utils/helpers/update-passengers";
 import { deletePassenger } from "../utils/helpers/delete-passenger";
+import { updatePassengers } from "../utils/helpers/update-passengers";
+import { PassengersType } from "../utils/types";
 
 const PassengerCard = ({ data }: { data: PassengersType }) => {
   const [isEditable, setIsEditable] = useState<boolean>(false);

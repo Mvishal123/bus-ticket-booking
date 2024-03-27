@@ -1,14 +1,16 @@
-import { mockBusDetails } from "../../utils/constants";
+import { useContext } from "react";
+import { BusContext } from "../../utils/store/bus-state";
 import BusCard from "../bus-card";
 
 const Booking = () => {
+  const {busDetails} = useContext(BusContext)
   return (
     <div>
       <h1 className="text-2xl font-bold">Available buses</h1>
 
       <div className="flex flex-wrap mt-6">
-        {mockBusDetails.map((bus, index) => (
-          <BusCard busDetails={bus as any} key={index} />
+        {busDetails.map((bus, index) => (
+          <BusCard busDetails={bus} key={index} />
         ))}
       </div>
     </div>

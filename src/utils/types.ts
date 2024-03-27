@@ -7,12 +7,12 @@ export type HeaderItems = {
 
 export interface SeatLayoutType {
   lower: {
-    first: SeatingDetails[];
-    second: SeatingDetails[];
+    first?: SeatingDetails[];
+    second?: SeatingDetails[];
   };
   upper: {
-    first: SeatingDetails[];
-    second: SeatingDetails[];
+    first?: SeatingDetails[];
+    second?: SeatingDetails[];
   };
 }
 
@@ -39,7 +39,6 @@ export interface SeatingDetails {
   type: SeatType;
   seatNumber: number;
   booked?: CustomerDetails;
-  selected?: boolean;
 }
 
 export interface CustomerDetails {
@@ -53,7 +52,6 @@ export interface CustomerDetails {
 
 export type SeatType = "upper" | "lower";
 
-// Seat layout
 export enum ReducerActionType {
   SELECT_SEAT = "SELECT_SEAT",
   SET_SEAT = "SET_SEAT",
@@ -91,6 +89,6 @@ export type PassengersType = {
   from: string;
   lastname: string;
   seatNumber: number;
-  seatType: SeatType
+  seatType: SeatType;
   to: string;
 };

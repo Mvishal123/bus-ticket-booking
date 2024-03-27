@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import { mockBusDetails } from "../constants";
-import { BusDetailsType } from "../types";
+import { BusDetailsType, SeatingDetails } from "../types";
 
 type BusContextType = {
   busDetails: BusDetailsType[];
@@ -16,10 +16,8 @@ const BusContextProvider = ({ children }: { children: React.ReactNode }) => {
     if (busdetails) {
       setBusdetails(JSON.parse(busdetails));
     } else {
-      const bus = localStorage.setItem(
-        "busDetails",
-        JSON.stringify(mockBusDetails)
-      );
+      localStorage.setItem("busDetails", JSON.stringify(mockBusDetails));
+      // TODO: Fix this later
       setBusdetails(mockBusDetails as any);
     }
   }, []);

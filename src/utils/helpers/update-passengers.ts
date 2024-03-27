@@ -1,8 +1,7 @@
 import {
   BusDetailsType,
   PassengersType,
-  SeatingDetails,
-  SeatLayoutType,
+  SeatingDetails
 } from "../types";
 
 export const updatePassengers = (details: PassengersType): boolean => {
@@ -14,7 +13,7 @@ export const updatePassengers = (details: PassengersType): boolean => {
         const updatedSeatLayout = { ...bus.seatLayout };
         updatedSeatLayout[details.seatType].first = updatedSeatLayout[
           details.seatType
-        ]?.first.map((seats) =>
+        ]?.first?.map((seats) =>
           Array.isArray(seats)
             ? seats.map((seat) =>
                 seat.seatNumber === details.seatNumber && seat.booked
@@ -44,7 +43,7 @@ export const updatePassengers = (details: PassengersType): boolean => {
 
         updatedSeatLayout[details.seatType].second = updatedSeatLayout[
           details.seatType
-        ]?.second.map((seats) =>
+        ]?.second?.map((seats) =>
           Array.isArray(seats)
             ? seats.map((seat) =>
                 seat.seatNumber === details.seatNumber && seat.booked
