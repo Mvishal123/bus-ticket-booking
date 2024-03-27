@@ -175,7 +175,8 @@ const BusBooking = () => {
           </div>
         </div>
       )}
-      <section className="bg-slate-100 px-6 md:px-12 py-2 rounded-lg flex justify-between items-center">
+
+      <section className="bg-slate-100 px-6 md:px-12 py-2 rounded-lg flex justify-between items-center ">
         {/* sec1 */}
         <div className="w-40 md:w-56">
           <h1 className="font-bold text-xl">{busDetails?.busBrand}</h1>
@@ -262,7 +263,7 @@ const BusBooking = () => {
       </section>
 
       {/* Bus layout */}
-      <section className="flex flex-wrap justify-center items-center min-h-[80vh] sm:min-h-[55vh] px-4 -rotate-90 sm:rotate-0">
+      <section className="flex flex-wrap justify-center items-center min-h-[80vh] sm:min-h-[55vh] px-4 -rotate-90 sm:rotate-0 overflow-hidden">
         {seatState &&
           (type === "lower" ? (
             <div>
@@ -281,7 +282,7 @@ const BusBooking = () => {
           ) : (
             <div className="rotate-90 sm:rotate-0 flex flex-col items-center text-slate-400">
               <Bus className="h-16 w-16" />
-              <h1 className="text-4xl font-semibold  italic">
+              <h1 className="text-4xl font-semibold  text-center italic">
                 Please select a deck
               </h1>
             </div>
