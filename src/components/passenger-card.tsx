@@ -154,7 +154,8 @@ const PassengerCard = ({ data }: { data: PassengersType }) => {
                 <h2 className="font-semibold">Email</h2>: {data.email}
               </li>
               <li className="flex items-center">
-                <h2 className="font-semibold">Seat number</h2>:{data.seatNumber}
+                <h2 className="font-semibold">Seat number</h2>:{" "}
+                {data.seatNumber}
                 {data.seatType === "lower" ? "L" : "H"}
               </li>
               <li className="flex items-center">

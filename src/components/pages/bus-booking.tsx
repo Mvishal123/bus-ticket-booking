@@ -54,8 +54,8 @@ const BusBooking = () => {
   return (
     <>
       {isBooking && (
-        <div className="h-screen backdrop-blur-md absolute top-0 left-0 right-0 bottom-0 z-20 flex justify-center">
-          <div className="w-full md:w-[50%] bg-slate-50 border-x-2 md:border-slate-500 z-30 overflow-auto">
+        <div className="fixed backdrop-blur-md top-0 left-0 right-0 bottom-0 z-20 flex justify-center">
+          <div className="relative w-full md:w-[600px] bg-slate-50 border-x-2 md:border-slate-500 z-30 overflow-auto">
             <div className="flex justify-end p-6">
               <button className="font-bold" onClick={() => setIsBooking(false)}>
                 Close

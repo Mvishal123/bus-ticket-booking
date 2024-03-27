@@ -10,3 +10,25 @@
     @apply bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent
   }
 }
+
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a0a0a0;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #808080;
+}
