@@ -23,7 +23,7 @@ const BusBooking = () => {
   }>({});
 
   const seatsLeft =
-    busDetails?.totalSeats! - getSeatCount(busDetails?.id!) ?? null;
+    busDetails?.totalSeats! - getSeatCount(busDetails?.id!) || null;
 
   // @ts-ignore
   const { dispatch, seatState, selectedSeats } = useSeatState();
@@ -263,7 +263,7 @@ const BusBooking = () => {
       </section>
 
       {/* Bus layout */}
-      <section className="flex flex-wrap justify-center items-center min-h-[80vh] sm:min-h-[55vh] px-4 -rotate-90 sm:rotate-0 overflow-hidden">
+      <section className="flex flex-wrap justify-center items-center min-h-[80vh] sm:min-h-[55vh] px-4 -rotate-90 sm:rotate-0   ">
         {seatState &&
           (type === "lower" ? (
             <div>
